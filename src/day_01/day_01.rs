@@ -1,4 +1,4 @@
-use std::collections::{HashMap};
+use std::collections::HashMap;
 use std::fs::read_to_string;
 
 fn main() {
@@ -19,12 +19,7 @@ fn part_1(input: &str) -> i32 {
     });
     l.sort();
     r.sort();
-    l
-        .iter()
-        .copied()
-        .zip(r.iter().copied())
-        .map(|(a, b)| (a - b).abs())
-        .sum()
+    l.iter().zip(r.iter()).map(|(a, b)| (a - b).abs()).sum()
 }
 
 fn part_2(input: &str) -> i32 {
@@ -36,11 +31,7 @@ fn part_2(input: &str) -> i32 {
         l.push(a.trim().parse::<i32>().unwrap());
         *(r.entry(b).or_insert(0)) += 1;
     });
-    l
-        .iter()
-        .copied()
-        .map(|a| a * r.get(&a).copied().unwrap_or(0))
-        .sum()
+    l.iter().map(|a| a * r.get(a).unwrap_or(&0)).sum()
 }
 
 #[cfg(test)]
@@ -48,27 +39,33 @@ mod tests {
 
     #[test]
     fn part_1() {
-        let result = super::part_1("\
+        let result = super::part_1(
+            "\
             3   4\n\
             4   3\n\
             2   5\n\
             1   3\n\
             3   9\n\
             3   3\n\
-        ".trim());
+        "
+            .trim(),
+        );
         assert_eq!(result, 11);
     }
 
     #[test]
     fn part_2() {
-        let result = super::part_2("\
+        let result = super::part_2(
+            "\
             3   4\n\
             4   3\n\
             2   5\n\
             1   3\n\
             3   9\n\
             3   3\n\
-        ".trim());
+        "
+            .trim(),
+        );
         assert_eq!(result, 31);
     }
 }
